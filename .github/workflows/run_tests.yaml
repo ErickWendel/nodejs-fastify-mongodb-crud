@@ -1,0 +1,28 @@
+name: Run tests
+
+on:
+  push:
+    paths:
+      - '**.js'
+      - '**.json'
+      - '**.yaml'
+    branches:
+      - main
+
+jobs:
+  setup-and-test-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Restore Dependencies for web-api
+        run: npm ci
+
+      - name: Run Tests for app/web-api
+        run: npm test
