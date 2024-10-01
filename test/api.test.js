@@ -10,7 +10,7 @@ describe('API Workflow', () => {
     function createCustomer(customer) {
         return _testServer.inject({
             method: 'POST',
-            url: `${_testServerAddress}/customers`,
+            url: `${_testServerAddress}/v1/customers`,
             payload: customer,
         })
     }
@@ -18,21 +18,21 @@ describe('API Workflow', () => {
     function getCustomers() {
         return _testServer.inject({
             method: 'GET',
-            url: `${_testServerAddress}/customers`,
+            url: `${_testServerAddress}/v1/customers`,
         })
     }
 
     function getCustomerById(id) {
         return _testServer.inject({
             method: 'GET',
-            url: `${_testServerAddress}/customers/${id}`,
+            url: `${_testServerAddress}/v1/customers/${id}`,
         })
     }
 
     function updateCustomer(id, customer) {
         return _testServer.inject({
             method: 'PUT',
-            url: `${_testServerAddress}/customers/${id}`,
+            url: `${_testServerAddress}/v1/customers/${id}`,
             payload: customer,
         })
     }
@@ -40,7 +40,7 @@ describe('API Workflow', () => {
     function deleteCustomer(id) {
         return _testServer.inject({
             method: 'DELETE',
-            url: `${_testServerAddress}/customers/${id}`,
+            url: `${_testServerAddress}/v1/customers/${id}`,
         })
     }
 
@@ -72,7 +72,7 @@ describe('API Workflow', () => {
 
     after(async () => _testServer.close())
 
-    describe('POST /customers', () => {
+    describe('POST /v1/customers', () => {
         it('should create customer', async () => {
             const input = {
                 name: 'Xuxa da Silva',
@@ -93,7 +93,7 @@ describe('API Workflow', () => {
         })
     })
 
-    describe(`GET /customers`, () => {
+    describe(`GET /v1/customers`, () => {
         it('should retrieve only initial users', async () => {
             return validateUsersListOrderedByName(users)
         })
@@ -114,7 +114,7 @@ describe('API Workflow', () => {
         })
     })
 
-    describe(`GET /customers/:id`, () => {
+    describe(`GET /v1/customers/:id`, () => {
         it('should retrieve a customer by ID', async () => {
             const customerResponse = await createCustomer({
                 name: 'Test User',
@@ -134,7 +134,7 @@ describe('API Workflow', () => {
         })
     })
 
-    describe(`PUT /customers/:id`, () => {
+    describe(`PUT /v1/customers/:id`, () => {
         it('should update a customer', async () => {
             const customerResponse = await createCustomer({
                 name: 'Update User',
@@ -162,7 +162,7 @@ describe('API Workflow', () => {
         })
     })
 
-    describe(`DELETE /customers/:id`, () => {
+    describe(`DELETE /v1/customers/:id`, () => {
         it('should delete a customer', async () => {
             const customerResponse = await createCustomer({
                 name: 'Delete User',

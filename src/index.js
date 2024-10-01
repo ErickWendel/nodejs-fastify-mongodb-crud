@@ -12,7 +12,7 @@ if (!isTestEnv && !process.env.DB_NAME) {
 
 const { dbClient, collections: { dbUsers } } = await getDb()
 
-fastify.get('/customers', async (request, reply) => {
+fastify.get('/v1/customers', async (request, reply) => {
     const users = await dbUsers
         .find({})
         .sort({ name: 1 })
@@ -21,7 +21,7 @@ fastify.get('/customers', async (request, reply) => {
     return reply.code(200).send(users)
 })
 
-fastify.get('/customers/:id', {
+fastify.get('/v1/customers/:id', {
     schema: {
         response: {
             200: {
@@ -67,7 +67,7 @@ fastify.get('/customers/:id', {
     })
 })
 
-fastify.post('/customers', {
+fastify.post('/v1/customers', {
     schema: {
         body: {
             type: 'object',
@@ -93,7 +93,7 @@ fastify.post('/customers', {
     return reply.code(201).send({ message: `user ${user.name} created!`, id: result.insertedId.toString() })
 })
 
-fastify.put('/customers/:id', {
+fastify.put('/v1/customers/:id', {
     schema: {
         body: {
             type: 'object',
@@ -143,7 +143,7 @@ fastify.put('/customers/:id', {
     return reply.code(200).send({ message: `User ${id} updated!`, id })
 })
 
-fastify.delete('/customers/:id', {
+fastify.delete('/v1/customers/:id', {
     schema: {
         response: {
             200: {

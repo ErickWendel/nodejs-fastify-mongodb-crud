@@ -55,31 +55,31 @@ Here are the available routes for performing CRUD operations on customers:
 
 1. **Create a Customer** (POST)
    ```bash
-   curl -X POST http://localhost:9999/customers \
+   curl -X POST http://localhost:9999/v1/customers \
    -H "Content-Type: application/json" \
    -d '{"name": "John Doe", "phone": "123456789"}'
    ```
 
 2. **Retrieve All Customers** (GET)
    ```bash
-   curl http://localhost:9999/customers
+   curl http://localhost:9999/v1/customers
    ```
 
 3. **Retrieve a Customer by ID** (GET)
    ```bash
-   curl http://localhost:9999/customers/<customer_id>
+   curl http://localhost:9999/v1/customers/<customer_id>
    ```
 
 4. **Update a Customer** (PUT)
    ```bash
-   curl -X PUT http://localhost:9999/customers/<customer_id> \
+   curl -X PUT http://localhost:9999/v1/customers/<customer_id> \
    -H "Content-Type: application/json" \
    -d '{"name": "Jane Doe", "phone": "987654321"}'
    ```
 
 5. **Delete a Customer** (DELETE)
    ```bash
-   curl -X DELETE http://localhost:9999/customers/<customer_id>
+   curl -X DELETE http://localhost:9999/v1/customers/<customer_id>
    ```
 
 ## License
