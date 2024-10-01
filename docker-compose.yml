@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  api01-test:
+    hostname: api01
+    build: .
+    environment:
+      DB_HOST: mongodb
+      DB_NAME: customers
+    ports:
+      - "9999:9999"
+    # command: npm run test
+    command: npm run test:dev
+    volumes:
+      - .:/src
+      - nodemodules:/src/node_modules
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+volumes:
+  nodemodules: {}
