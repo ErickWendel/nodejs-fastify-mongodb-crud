@@ -188,6 +188,18 @@ fastify.addHook('onClose', async () => {
     console.log('server closed!')
     return dbClient.close()
 })
+fastify.addHook('preHandler', (req, res, done) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "*");
+
+    const isPreflight = /options/i.test(req.method);
+    if (isPreflight) {
+        return res.send();
+    }
+
+    done();
+})
 
 if (!isTestEnv) {
     const serverInfo = await fastify.listen({
