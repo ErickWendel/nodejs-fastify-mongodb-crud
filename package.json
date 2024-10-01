@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "DB_NAME=customers node src/index.js",
     "dev": "DB_NAME=customers node --watch src/index.js",
     "test": "NODE_ENV=test node --experimental-test-coverage --test test/ ",
     "test:dev": "NODE_ENV=test node --watch --test test/",
@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "erickwendel",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "engines": {
     "node": "v20.11.0"
