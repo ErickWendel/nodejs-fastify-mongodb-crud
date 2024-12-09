@@ -47,7 +47,7 @@ jobs:
       - name: Update source commit SHA in Coolify
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ secrets.COOLIFY_URL }}
+          url: ${{ secrets.COOLIFY_SERVER }}/api/v1/applications/${{ secrets.COOLIFY_RESOURCE_ID }}
           method: PATCH
           bearerToken: ${{ secrets.COOLIFY_API_TOKEN }}
           data: >-
@@ -58,6 +58,6 @@ jobs:
       - name: Trigger Coolify deployment via webhook
         uses: fjogeleit/http-request-action@v1
         with:
-          url: ${{ secrets.COOLIFY_URL }}
+          url: ${{ secrets.COOLIFY_SERVER }}/api/v1/deploy?uuid=${{secrets.COOLIFY_RESOURCE_ID}}&force=false
           method: GET
           bearerToken: ${{ secrets.COOLIFY_API_TOKEN }}
