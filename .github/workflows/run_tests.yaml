@@ -1,4 +1,4 @@
-name: Run tests
+name: Run tests and deploy
 
 on:
   push:
@@ -7,13 +7,13 @@ on:
       - '**.json'
       - '**.yaml'
     branches:
-      - main
+      - coolify
 concurrency:
   group: staging_environment
   cancel-in-progress: true
 
 jobs:
-  setup-and-test-app:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout repository
@@ -37,3 +37,27 @@ jobs:
 
         - name: Run Tests for app/web-api
           run: npm test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update source commit SHA in Coolify
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ secrets.COOLIFY_URL }}
+          method: PATCH
+          bearerToken: ${{ secrets.COOLIFY_API_TOKEN }}
+          data: >-
+            {
+            "git_commit_sha": "${{ github.sha }}"
+            }
+
+      - name: Trigger Coolify deployment via webhook
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ secrets.COOLIFY_URL }}
+          method: GET
+          bearerToken: ${{ secrets.COOLIFY_API_TOKEN }}
